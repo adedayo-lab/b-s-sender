@@ -15,7 +15,8 @@ A TypeScript-based script to send bulk SMS using Termii API.
    npm install axios dotenv ts-node
 
 To execute index.ts directly using ts-node (without compiling to JavaScript), run:
-```bash npx ts-node src/index.ts
+```bash 
+npx ts-node src/index.ts
 ```
 
 ## Create or Update .env File
