@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "target": "es6", // or "es2015"
+        "lib": [
+            "es6",
+            "dom"
+        ], // Include "es6" or "es2015" for Promise support
+        "module": "commonjs",
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "rootDir": ".",
+        "outDir": "dist",
+    }
+}
