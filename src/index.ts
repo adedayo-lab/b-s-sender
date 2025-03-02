@@ -3,7 +3,7 @@ import { isValidPhoneNumber, formatPhoneNumber } from '../utils/validator';
 import { delay } from '../utils/delaySeq';
 
 const pN = ["2348168070088", "+2349083494644", "08012345678"];  // Phone numbers
-const msg = "This is just a test SMS using Termii";              // Message
+const msg = "This is just a test SMS using Termii and accessing resources";              // Message
 const DELAY_MS = 5000;                                          // 5-second delay
 
 const sendBatchSMS = async () => {
@@ -26,14 +26,24 @@ const sendBatchSMS = async () => {
         failedNumbers.push(number);  // ✅ Track failed sends
         console.log(`❌ Failed to send SMS to ${number}`);
       }
-    } catch (error) {
+    } catch (error: any) { // Use 'any' to avoid TypeScript errors
+      // Log detailed error response
+      if (error.response) {
+        console.error(`❌ Error sending SMS to ${number}:`, {
+          status: error.response.status,
+          data: error.response.data,
+          message: error.message,
+        });
+      } else {
+        console.error(`❌ Unexpected error sending SMS to ${number}:`, error);
+      }
       failedNumbers.push(number);  // ✅ Track failed sends
-      console.error(`❌ Error sending SMS to ${number}:`, error);
     }
+
     await delay(DELAY_MS);
   }
 
-  console.log("\n--- 📊 Summary ---");
+  console.log("\n--- Summary ---");
   console.log(`✅ Successfully sent to: ${successfulNumbers.length}`);
   console.log(`❌ Failed to send to: ${failedNumbers.length}`);
   console.log(`❌ Invalid numbers: ${invalidNumbers.length}`);
