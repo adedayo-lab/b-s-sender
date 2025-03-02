@@ -1,24 +1,23 @@
+// src/sendSMS.ts
 import axios from "axios";
 import * as dotenv from "dotenv";
 
 dotenv.config();
 
-const apiKey = process.env.TERMII_API_KEY; // reading API key from .env 
-const senderId = process.env.TERMII_SENDER_ID;  // reading sender ID from .env
-const url = "https://BASE_URL/api/sms/send/bulk";
+const apiKey = process.env.TERMII_API_KEY;
+const url = "https://api.termii.com/api/sms/send/bulk";
 
-// an If Statement to check if API key and Sender ID are provided.
-if (!apiKey || !senderId) {
-    console.error("❌ Missing API_KEY or SENDER_ID check  .env file or directory");
-    process.exit(1);  // Exit if missing
+// ✅ Accept an object instead of separate arguments
+interface SendSMSPayload {
+    to: string[];
+    message: string;
 }
 
-const sendBulkSms = async (pN: string[], msg: string): Promise<boolean> => {
-    // 🛠 Define the payload correctly
+const sendSMS = async ({ to, message }: SendSMSPayload): Promise<boolean> => {
     const pl = {
-        to: pN,
-        from: senderId,
-        sms: msg,
+        to,
+        from: "Company ID",  // Replace with your sender ID
+        sms: message,
         type: "plain",
         channel: "generic",
         api_key: apiKey,
@@ -26,12 +25,14 @@ const sendBulkSms = async (pN: string[], msg: string): Promise<boolean> => {
 
     try {
         const response = await axios.post(url, pl);
-        console.log("✅ SMS sent successfully:", response.data);
+        console.log("Response:", response.data);
         return true;  // ✅ Return true if successful
-    } catch (error: any) {
-        console.log("❌ Error sending SMS:", error.response ? error.response.data : error.message);
+    } catch (error) {
+        /// useing type assertion to get the error response
+        const err = error as any;
+        console.log("!!! Error sending SMS:", err.response ? err.response.data : err.message);
         return false;  // ✅ Return false if failed
     }
 };
 
-export default sendBulkSms;
+export default sendSMS;
