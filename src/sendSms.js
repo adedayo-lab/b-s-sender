@@ -40,7 +40,7 @@ var axios_1 = require("axios");
 var dotenv = require("dotenv");
 dotenv.config();
 var apiKey = process.env.TERMII_API_KEY;
-var url = "https://BASE_URL/api/sms/send/bulk";
+var url = "https://v3.api.termii.com";
 var sendBulkSms = function (pN, msg) {
     return __awaiter(void 0, void 0, void 0, function () {
         var pl, response, error_1;

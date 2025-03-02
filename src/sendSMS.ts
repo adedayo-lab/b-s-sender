@@ -5,7 +5,7 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 const apiKey = process.env.TERMII_API_KEY;
-const url = "https://BASE_URL/api/sms/send/bulk";
+const url = "https://v3.api.termii.com";
 
 // ✅ Accept an object instead of separate arguments
 interface SendSMSPayload {
