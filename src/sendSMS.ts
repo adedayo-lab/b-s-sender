@@ -3,13 +3,13 @@ import * as dotenv from "dotenv";
 
 dotenv.config();
 
-const apiKey = process.env.TERMII_API_KEY; // Added API key from .env 
-const senderId = process.env.TERMII_SENDER_ID;  // Added sender ID from .env
+const apiKey = process.env.TERMII_API_KEY; // reading API key from .env 
+const senderId = process.env.TERMII_SENDER_ID;  // reading sender ID from .env
 const url = "https://api.termii.com/api/sms/send/bulk";
 
-// 🛠 Check if API key and Sender ID are provided
+// an If Statement to check if API key and Sender ID are provided.
 if (!apiKey || !senderId) {
-    console.error("❌ Missing TERMII_API_KEY or TERMII_SENDER_ID in .env file.");
+    console.error("❌ Missing API_KEY or SENDER_ID check  .env file or directory");
     process.exit(1);  // Exit if missing
 }
 
