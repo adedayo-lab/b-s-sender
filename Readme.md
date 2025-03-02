@@ -24,6 +24,5 @@ Make sure your .env file has the correct API key and sender ID:
 TERMII_API_KEY=your_actual_api_key
 TERMII_SENDER_ID=your_sender_id
 
-4. Compile TypeScript (Optional)
-```bash npx tsc
-```
+
+#

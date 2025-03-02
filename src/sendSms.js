@@ -9,8 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g = Object.create((typeof Iterator === "function" ? Iterator : Object).prototype);
-    return g.next = verb(0), g["throw"] = verb(1), g["return"] = verb(2), typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    var _ = { label: 0, sent: function () { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g = Object.create((typeof Iterator === "function" ? Iterator : Object).prototype);
+    return g.next = verb(0), g["throw"] = verb(1), g["return"] = verb(2), typeof Symbol === "function" && (g[Symbol.iterator] = function () { return this; }), g;
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
@@ -40,34 +40,36 @@ var axios_1 = require("axios");
 var dotenv = require("dotenv");
 dotenv.config();
 var apiKey = process.env.TERMII_API_KEY;
-var url = "https://api.termii.com/api/sms/send/bulk";
-var sendBulkSms = function (pN, msg) { return __awaiter(void 0, void 0, void 0, function () {
-    var pl, response, error_1;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                pl = {
-                    to: pN,
-                    from: "Company ID",
-                    sms: msg,
-                    type: "plain",
-                    channel: "generic",
-                    api_key: apiKey,
-                };
-                _a.label = 1;
-            case 1:
-                _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, axios_1.default.post(url, pl)];
-            case 2:
-                response = _a.sent();
-                console.log("Response:", response.data);
-                return [3 /*break*/, 4];
-            case 3:
-                error_1 = _a.sent();
-                console.log("!!! Error sending SMS :", error_1.response ? error_1.response.data : error_1.message);
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
-        }
+var url = "https://BASE_URL/api/sms/send/bulk";
+var sendBulkSms = function (pN, msg) {
+    return __awaiter(void 0, void 0, void 0, function () {
+        var pl, response, error_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    pl = {
+                        to: pN,
+                        from: "Company ID",
+                        sms: msg,
+                        type: "plain",
+                        channel: "generic",
+                        api_key: apiKey,
+                    };
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 3, , 4]);
+                    return [4 /*yield*/, axios_1.default.post(url, pl)];
+                case 2:
+                    response = _a.sent();
+                    console.log("Response:", response.data);
+                    return [3 /*break*/, 4];
+                case 3:
+                    error_1 = _a.sent();
+                    console.log("!!! Error sending SMS :", error_1.response ? error_1.response.data : error_1.message);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
+            }
+        });
     });
-}); };
+};
 exports.default = sendBulkSms;
