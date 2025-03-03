@@ -5,7 +5,7 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 const apiKey = process.env.TERMII_API_KEY;
-const url = "https://v3.api.termii.com";
+const url = 'https://api.ng.termii.com/api/sms/send/bulk';
 
 // ✅ Accept an object instead of separate arguments
 interface SendSMSPayload {
@@ -16,7 +16,7 @@ interface SendSMSPayload {
 const sendSMS = async ({ to, message }: SendSMSPayload): Promise<boolean> => {
     const pl = {
         to,
-        from: "Company ID",  // Replace with your sender ID
+        from: "Holuid",
         sms: message,
         type: "plain",
         channel: "generic",
