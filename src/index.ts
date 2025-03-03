@@ -2,9 +2,12 @@ import sendSMS from "./sendSMS";
 import { isValidPhoneNumber, formatPhoneNumber } from '../utils/validator';
 import { delay } from '../utils/delaySeq';
 
-const pN = ["2348168070088", "+2349083494644", "08012345678"];  // Phone numbers
-const msg = "This is just a test SMS using Termii and accessing resources";              // Message
+const pN = ["2348168070088", "2349083494644","2349127818402"];  // Phone numbers
+const msg = "This is just a test SMS using Termii resources, we are so glad you finally recieved this";              // Message
 const DELAY_MS = 5000;                                          // 5-second delay
+
+
+
 
 const sendBatchSMS = async () => {
   const validNumbers = pN.filter(isValidPhoneNumber).map(formatPhoneNumber);  // ✅ Format valid numbers
@@ -52,5 +55,7 @@ const sendBatchSMS = async () => {
     console.log(failedNumbers.join("\n"));
   }
 };
+
+// console.log(msg);// to ensure the message is correct and present
 
 sendBatchSMS();
