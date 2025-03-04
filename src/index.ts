@@ -10,10 +10,10 @@ const DELAY_MS = 5000;                                          // 5-second dela
 
 
 const sendBatchSMS = async () => {
-  const validNumbers = pN.filter(isValidPhoneNumber).map(formatPhoneNumber);  // ✅ Format valid numbers
+  const validNumbers = pN.filter(isValidPhoneNumber).map(formatPhoneNumber);  //  Format valid numbers
   const invalidNumbers = pN.filter(num => !isValidPhoneNumber(num));
-  const failedNumbers: string[] = [];   // ✅ To track failed sends
-  const successfulNumbers: string[] = [];  // ✅ To track successful sends
+  const failedNumbers: string[] = [];   //  To track failed sends
+  const successfulNumbers: string[] = [];  //  To track successful sends
 
   if (invalidNumbers.length > 0) {
     console.log("❌ Invalid phone numbers:");
@@ -24,9 +24,9 @@ const sendBatchSMS = async () => {
     try {
       const success = await sendSMS({ to: [number], message: msg });
       if (success) {
-        successfulNumbers.push(number);  // ✅ Track success
+        successfulNumbers.push(number);  //  Track success
       } else {
-        failedNumbers.push(number);  // ✅ Track failed sends
+        failedNumbers.push(number);  //  Track failed sends
         console.log(`❌ Failed to send SMS to ${number}`);
       }
     } catch (error: any) { // Use 'any' to avoid TypeScript errors
@@ -40,7 +40,7 @@ const sendBatchSMS = async () => {
       } else {
         console.error(`❌ Unexpected error sending SMS to ${number}:`, error);
       }
-      failedNumbers.push(number);  // ✅ Track failed sends
+      failedNumbers.push(number);  // Track failed sends
     }
 
     await delay(DELAY_MS);
