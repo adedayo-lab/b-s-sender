@@ -1,61 +1,47 @@
 import sendSMS from "./sendSMS";
-import { isValidPhoneNumber, formatPhoneNumber } from '../utils/validator';
-import { delay } from '../utils/delaySeq';
+import { isValidPhoneNumber, formatPhoneNumber } from "../utils/validator";
+import { delay } from "../utils/delaySeq";
 
-const pN = ["2348168070088", "2349083494644","2349127818402"];  // Phone numbers
-const msg = "This is just a test SMS using Termii resources, we are so glad you finally recieved this";              // Message
-const DELAY_MS = 5000;                                          // 5-second delay
-
-
-
+const pN = ["2348168070088", "2349083494644", "2349127818402"];
+const msg = "Hi there, if you get this it means our Bulk SMS with Termii is now functioning. Hurray!!!";
+const DELAY_MS = 5000;
 
 const sendBatchSMS = async () => {
-  const validNumbers = pN.filter(isValidPhoneNumber).map(formatPhoneNumber);  //  Format valid numbers
-  const invalidNumbers = pN.filter(num => !isValidPhoneNumber(num));
-  const failedNumbers: string[] = [];   //  To track failed sends
-  const successfulNumbers: string[] = [];  //  To track successful sends
+    const validNumbers = pN.filter(isValidPhoneNumber).map(formatPhoneNumber);
+    const invalidNumbers = pN.filter(num => !isValidPhoneNumber(num));
+    const failedNumbers: string[] = [];
+    const successfulNumbers: string[] = [];
 
-  if (invalidNumbers.length > 0) {
-    console.log("❌ Invalid phone numbers:");
-    console.log(invalidNumbers.join("\n"));
-  }
+    console.log("📲 Valid Numbers:", validNumbers);
+    console.log("❌ Invalid Numbers:", invalidNumbers);
 
-  for (const number of validNumbers) {
-    try {
-      const success = await sendSMS({ to: [number], message: msg });
-      if (success) {
-        successfulNumbers.push(number);  //  Track success
-      } else {
-        failedNumbers.push(number);  //  Track failed sends
-        console.log(`❌ Failed to send SMS to ${number}`);
-      }
-    } catch (error: any) { // Use 'any' to avoid TypeScript errors
-      // Log detailed error response
-      if (error.response) {
-        console.error(`❌ Error sending SMS to ${number}:`, {
-          status: error.response.status,
-          data: error.response.data,
-          message: error.message,
-        });
-      } else {
-        console.error(`❌ Unexpected error sending SMS to ${number}:`, error);
-      }
-      failedNumbers.push(number);  // Track failed sends
+    if (validNumbers.length > 0) {
+        try {
+            const success = await sendSMS({ to: validNumbers, message: msg });
+            if (success) {
+                successfulNumbers.push(...validNumbers);
+                console.log(`✅ Successfully sent SMS to ${validNumbers.length} numbers.`);
+            } else {
+                failedNumbers.push(...validNumbers);
+                console.log(`❌ Failed to send SMS to some numbers.`);
+            }
+        } catch (error: unknown) {
+            console.error("❌ Unexpected error:", error);
+            failedNumbers.push(...validNumbers);
+        }
     }
 
     await delay(DELAY_MS);
-  }
 
-  console.log("\n--- Summary ---");
-  console.log(`✅ Successfully sent to: ${successfulNumbers.length}`);
-  console.log(`❌ Failed to send to: ${failedNumbers.length}`);
-  console.log(`❌ Invalid numbers: ${invalidNumbers.length}`);
-  if (failedNumbers.length > 0) {
-    console.log("\nFailed Numbers:");
-    console.log(failedNumbers.join("\n"));
-  }
+    console.log("\n--- Summary ---");
+    console.log(`✅ Successfully sent to: ${successfulNumbers.length}`);
+    console.log(`❌ Failed to send to: ${failedNumbers.length}`);
+    console.log(`❌ Invalid numbers: ${invalidNumbers.length}`);
+
+    if (failedNumbers.length > 0) {
+        console.log("\n❌ Failed Numbers:");
+        failedNumbers.forEach(num => console.log(`- ${num}`));
+    }
 };
-
-// console.log(msg);// to ensure the message is correct and present
 
 sendBatchSMS();
