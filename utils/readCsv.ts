@@ -25,7 +25,7 @@ export const readContactsFromCSV = (): Promise<Contact[]> => {
                 }
             })
             .on('end', () => {
-                console.log( `{contacts.length}✅Contacts read from csv.`);
+                console.log(`\n ${contacts.length}  ✅ Contacts read from csv.`);
                 resolve(contacts);
             })
             .on("error", (error) => {

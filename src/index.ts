@@ -11,7 +11,7 @@ const sendBatchSMS = async () => {
     try {
 
         const contact = await getContacts();
-        console.log(`Succesfully loaded ${contact.length}contacts from imported CSV file.`);
+        console.log(`✅Succesfully loaded: ${contact.length} contacts from imported CSV file.`);
 
         //to seperate valid from inValid pN's
         const validContacts = contact.filter(contact => isValidPhoneNumber(contact.pN));
@@ -41,7 +41,7 @@ const sendBatchSMS = async () => {
                 const success = await sendSMS({ to: validNumbers, message: msg });
                 if (success) {
                     successfulNumbers.push(...validNumbers);
-                    console.log(`Successfully sent SMS to ${validNumbers.length} numbers.`);
+                    console.log(`✅ Successfully sent SMS to:  ${validNumbers.length} numbers.`);
                 } else {
                     failedNumbers.push(...validNumbers);
                     console.log("Failed to send SMS to some numbers.");
