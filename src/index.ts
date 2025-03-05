@@ -1,9 +1,11 @@
+import { msg } from "./config";
 import sendSMS from "./sendSMS";
 import { isValidPhoneNumber, formatPhoneNumber } from "../utils/validator";
 import { delay } from "../utils/delaySeq";
 
+
+
 const pN = ["2348168070088", "2349083494644", "2349127818402"];
-const msg = "Hi there, if you get this it means our Bulk SMS with Termii is now functioning. Hurray!!!";
 const DELAY_MS = 5000;
 
 const sendBatchSMS = async () => {
