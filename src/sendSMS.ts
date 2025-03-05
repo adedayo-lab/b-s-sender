@@ -1,6 +1,8 @@
 import axios from "axios";
 import * as dotenv from "dotenv";
 import { msg } from "./config";
+
+
 dotenv.config();
 
 const apiKey = process.env.TERMII_API_KEY;
@@ -8,8 +10,8 @@ const senderId = process.env.TERMII_SENDER_ID;
 const baseUrl = `${process.env.TERMII_BASE_URL}/api/sms/send/bulk`;
 
 //Test for sender id info and msg content...
-console.log("Sender ID is ==>>>", senderId);
-console.log("What recipient would receive ==>>>", msg);
+console.log("\n Sender ID is ==>>>", senderId);
+console.log("\n BULK SMS CONTENT ==>>>", msg);
 
 if (!apiKey) console.error("❌ Missing TERMII_API_KEY.");
 if (!senderId) console.error("❌ Missing TERMII_SENDER_ID.");
@@ -36,7 +38,7 @@ const sendSMS = async ({ to, message }: SendSMSPayload): Promise<boolean> => {
 
     try {
         const response = await axios.post(baseUrl, payload, {
-            headers: { "Content-Type": "application/json" },
+            headers: {"Content-Type": "application/json" },
         });
         console.log("✅ SMS Sent! Response:", response.data);
         return true; 

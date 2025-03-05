@@ -25,11 +25,11 @@ export const readContactsFromCSV = (): Promise<Contact[]> => {
                 }
             })
             .on('end', () => {
-                console.log("✅ ${contacts.lenght} Contacts read from csv.");
+                console.log( `{contacts.length}✅Contacts read from csv.`);
                 resolve(contacts);
             })
             .on("error", (error) => {
-                console.error("❌ Error reading csv:", error);
+                console.error("❌ Error reading csv check ===>>>", error);
                 reject(error);
             });
         });
